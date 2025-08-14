@@ -12,7 +12,6 @@ class BigramLanguageModel(nn.Module):
         self.lm_head = nn.Linear(N_EMBD, vocab_size)
 
     def forward(self, batch, targets=None):
-
         B, T = batch.shape
         tok_emb = self.token_emb_table(batch) # (B,T,C)
         pos_emb = self.position_emb_table(torch.arange(T, device=DEVICE)) # (T,C)

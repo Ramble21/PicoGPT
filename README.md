@@ -1,6 +1,6 @@
-Small Transformer-based language model made for fun/educational purposes
+Small Transformer-based character-level language model made for fun/educational purposes
 
-W.I.P right now. Saved to Github for version control purposes, not finished. Simple Bigram model incorporated as a demo but Transformer has not been built yet.
+W.I.P right now, functional but not finished / completely optimized.
 
 Based on nanoGPT by A. Karpathy: https://github.com/karpathy/nanoGPT
 

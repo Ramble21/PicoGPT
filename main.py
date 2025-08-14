@@ -1,12 +1,13 @@
 # Imports
 import random
 import requests
-import matplotlib.pyplot as plt
+from torchgen.native_function_generation import self_to_out_signature
+
+from transformer import Transformer
 
 # Hyperparameters
 from hyperparams import *
 
-from bigram import BigramLanguageModel
 
 # Seed for consistent random numbers
 SEED = 8675309
@@ -74,16 +75,12 @@ def train(m):
   print(f"Final approx. loss: {loss.item():.4f}")
   return loss_log
 
-# -------------------------------------------------------------------
-# Bigram Model
+# ---------------- Transformer ---------------------------------
 
-m = BigramLanguageModel(vocab_size)
+m = Transformer(vocab_size)
 m.to(DEVICE)
 log = train(m)
+print("Training finished!")
 
-MEAN_CALC = NUM_STEPS // 100
-loss_mean = torch.tensor(log).view(-1, MEAN_CALC).mean(1)
-plt.plot(loss_mean)
-
-NUM_CHARS = 1000
+NUM_CHARS = 2000
 sample(m, NUM_CHARS)

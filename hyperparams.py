@@ -1,14 +1,17 @@
 import torch
 
 # Hyperparameters
-CONTEXT_LEN = 8 # maximum context length for predictions
-BATCH_SIZE = 32 # number of sequences being processed by the transformer in parallel
-N_EMBD = 32 # number of embedding dimensions
-LR = 1e-3 # learning rate parameter for optimization
+CONTEXT_LEN = 256 # maximum context length for predictions
+BATCH_SIZE = 64 # number of sequences being processed by the transformer in parallel
+N_EMBD = 384 # number of embedding dimensions
+NUM_HEADS = 6 # number of heads in each multi-head attention module
+NUM_BLOCKS = 6 # number of blocks inside the transformer
+DROPOUT = 0.2 # rate at which dropout is applied (i.e 0.2 = 20% of neurons)
+LR = 3e-4 # learning rate parameter for optimization
 
 # Other various magic numbers
-NUM_STEPS = 20000 # number of steps used in model training
-LOSS_BENCH = 5000 # number of steps inbetween loss benchmarking prints during optimization
+NUM_STEPS = 5000 # number of steps used in model training
+LOSS_BENCH = 100 # number of steps inbetween loss benchmarking prints during optimization
 
 # Misc
 DATASET_LINK = "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"
