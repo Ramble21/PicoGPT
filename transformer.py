@@ -21,10 +21,11 @@ class Head(nn.Module):
         B, T, C = batch.shape
         k = self.key(batch) # (B, T, C)
         q = self.query(batch) # (B, T, C)
+        head_size = q.size(-1)
         # Compute attention "affinities" following the formula in Attention Is All You Need
-        w = q @ k.transpose(-2, -1) * (C ** -0.5) # (B, T, C) @ (B, C, T) -> (B, T, T), then multiply for unit gaussian normalization
+        w = q @ k.transpose(-2, -1) * (head_size ** -0.5) # (B, T, C) @ (B, C, T) -> (B, T, T), then multiply for unit gaussian normalization
         w = w.masked_fill(self.tril[:T, :T] == 0, float('-inf')) # Convert to log(lower triangular matrix)
-        w = F.softmax(w, dim=1) # Softmax to create actual lower triangular matrix
+        w = F.softmax(w, dim=-1) # Softmax to create actual lower triangular matrix
         w = self.dropout(w)
         v = self.value(batch) # (B, T, C)
         out = w @ v # (B, T, T) @ (B, T, C) -> (B, T, C)
